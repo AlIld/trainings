@@ -1,0 +1,7 @@
+{% extends 'user_page/main.html' %}
+{% block all_posts %}
+    {% for user in users %}
+        <h5>{{ user.status }}</h5>
+        <hr>
+    {% endfor %}
+{% endblock %}

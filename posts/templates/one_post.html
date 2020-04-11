@@ -1,0 +1,14 @@
+{% extends 'user_page/main.html' %}
+{% load static %}
+{% block all_posts %}
+<h4>Дата публикации:{{ post.post_date_creating }}</h4>
+<h2>{{ post.post_topic }}</h2>
+<p>{{ post.post_text }}</p>
+{#<p>Автор: {{ post.post_author.username }}</p>#}
+<p><img src="{% static "images/like.jpg" %}" width="50px" height="25px">{{ post.post_likes }}</p>
+<hr>
+<p>Комментарии</p>
+{% for comment in comments%}
+    <p>{{ comment.comments_text }}</p>
+{% endfor %}
+{% endblock %}
