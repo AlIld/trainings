@@ -1,6 +1,6 @@
 {%  extends "user_page/main.html" %}
 {% block all_posts %}
-<h2>Register/</h2>
+<h2>Register</h2>
 <form method="post">{% csrf_token %}
     {% for field in registration_form %}
         <p>
