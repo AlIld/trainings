@@ -1,7 +1,28 @@
-{% extends 'user_page/main.html' %}
+{%  extends "user_page/main.html" %}
 {% block all_posts %}
-    {% for user in users %}
-        <h5>{{ user.status }}</h5>
-        <hr>
+<h2>Account</h2>
+<form method="post">{% csrf_token %}
+    {% for field in account_form %}
+        <p>
+            {{ field.label_tag }}
+            {{ field }}
+
+            {% if field.help_text %}
+                <small style="color: grey;">{{ field.help_text }}</small>
+            {% endif %}
+
+            {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+
+            {% if account_form.non_field_errors %}
+                <div style="color: red;">
+                    <p>{{ account_form.non_field_errors }}</p>
+                </div>
+            {% endif %}
+        </p>
     {% endfor %}
-{% endblock %}
+    <button type="submit">Save changes</button>
+</form>
+
+{% endblock all_posts %}
