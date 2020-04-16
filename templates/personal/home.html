@@ -1,11 +1,20 @@
 {% extends 'user_page/main.html' %}
 
 {% block all_posts %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">Training</h1>
+  <p class="lead">Сервис для организации тренировочных занятий.</p>
+</div>
 
-<h3>Register users:</h3>
-    {% for account in accounts %}
-        <p>{{ account }}</p>
-    {% endfor %}
+<div class="container">
+    <div class="d-flex flex-column"><!-- Flex box -->
+        <h4>Register users:</h4>
+        {% for account in accounts %}
+            <p>{{ account }}</p>
+        {% endfor %}
+    </div>
+</div>
+
 
 
 {% endblock all_posts %}
