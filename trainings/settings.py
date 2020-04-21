@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'groups',
     'posts',
     'schedule',
+    'blog',
 ]
 
 MIDDLEWARE = [
