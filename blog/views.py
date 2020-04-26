@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 
 from blog.models import BlogPost
@@ -60,3 +61,18 @@ def edit_blog_view(request, slug):
 
     context['form'] = form
     return render(request, 'blog/edit_blog.html', context)
+
+
+def get_blog_queryset(query=None):
+    queryset = []
+    queries = query.split(" ")
+    for q in queries:
+        posts = BlogPost.objects.filter(
+            Q(title__icontains=q) |
+            Q(body__icontains=q)
+        ).distinct()
+
+        for post in posts:
+            queryset.append(post)
+
+    return list(set(queryset))

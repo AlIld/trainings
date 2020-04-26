@@ -46,18 +46,24 @@
 			<div class="d-lg-none mb-3">
 				<div class="card m-auto d-flex flex-column p-3">
 					<h3 class="m-auto">Trainings</h3>
-				<p class="lead">Если у Вас есть чем подделиться, пожалуйста, создайте пост!(Надо придумать текст поумнее)</p>
+				        <p class="lead">Если у Вас есть чем подделиться, пожалуйста, создайте пост!(Надо придумать текст поумнее)</p>
 					<p class="m-auto"><a class="btn btn-primary" href="{% url 'blog:create' %}">Create post</a></p>
 				</div>
 			</div>
 			<!-- end Top 'create post' bar -->
 
 			<!-- Blog posts-->
-			{% for post in blog_posts %}
-				<div class="blog-post-container">
-					{% include 'blog/snippets/blog_post_snippet.html' with blog_post=post %}
-				</div>
-			{% endfor %}
+            {% if blog_posts %}
+                {% for post in blog_posts %}
+                    <div class="blog-post-container">
+                        {% include 'blog/snippets/blog_post_snippet.html' with blog_post=post %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="blog-post-container">
+                    {% include 'blog/snippets/blog_post_snippet.html' with query=query %}
+                </div>
+            {% endif %}
 			<!-- End Blog posts-->
 		</div>
 		<!-- end blog feed -->
