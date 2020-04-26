@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from django.conf import settings
 from user.views import registration_view, logout_view, login_view, account_view
@@ -24,11 +24,12 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home_screen_view, name = "home"),
+    path('blog/', include('blog.urls', 'blog')),
     path('register/', registration_view, name = "register"),
     path('logout/', logout_view, name = "logout"),
     path('login/', login_view, name = "login"),
     path('account/', account_view, name = "account"),
-    path('', home_screen_view, name = "home"),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('password_change/done/',
