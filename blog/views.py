@@ -1,5 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 
 from blog.models import BlogPost
 from blog.forms import CreateBlogPostForm, UpdateBlogPostForm
@@ -43,6 +44,10 @@ def edit_blog_view(request, slug):
         return redirect("must_authenticate")
 
     blog_post = get_object_or_404(BlogPost, slug=slug)
+
+    if blog_post.author != user:
+        return HttpResponse("You are not the author of that post.")
+
     if request.POST:
         form = UpdateBlogPostForm(request.POST or None, request.FILES or None, instance=blog_post)
         if form.is_valid():
