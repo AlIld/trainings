@@ -18,18 +18,25 @@ from django.contrib import admin
 from django.urls import path, include
 
 from django.conf import settings
-from user.views import registration_view, logout_view, login_view, account_view
+from user.views import (
+    registration_view,
+    logout_view,
+    login_view,
+    account_view,
+    must_authenticate_view,
+)
 from personal.views import home_screen_view
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('', home_screen_view, name="home"),
     path('admin/', admin.site.urls),
-    path('', home_screen_view, name = "home"),
+    path('account/', account_view, name="account"),
     path('blog/', include('blog.urls', 'blog')),
-    path('register/', registration_view, name = "register"),
+    path('login/', login_view, name="login"),
     path('logout/', logout_view, name = "logout"),
-    path('login/', login_view, name = "login"),
-    path('account/', account_view, name = "account"),
+    path('must_authenticate/', must_authenticate_view, name = "must_authenticate"),
+    path('register/', registration_view, name = "register"),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     path('password_change/done/',
