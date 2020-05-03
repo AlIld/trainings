@@ -6,12 +6,6 @@ from user.models import New_user
 from user.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 
 
-def showMain(request):
-    return render(request, 'user_page/main.html')
-
-def showUser(request, user_id=1):
-    return render(request, 'user_page/user.html', context={'users': New_user.objects.all()})
-
 def registration_view(request):
     context = {}
     if request.POST:
