@@ -1,0 +1,62 @@
+{% extends 'user_page/main.html' %}
+{% load static %}
+<style type="text/css">
+    .card {
+        max-width: 700px;
+    }
+    .container{
+        padding: 20px;
+    }
+</style>
+{% block all_posts %}
+<div class="container">
+    <div class="page-title" align="center">
+        {% if user.id == request.user.id %}
+            <h3>Мой профиль</h3>
+        {% else %}
+            <h3>Профиль {{ user.username }}</h3>
+        {% endif %}
+    </div>
+
+        <div class="about-user" align="center">
+            {% if user.photo %}
+                <p><img src="{{ user.photo.url }}" width="180" height="180" class="avatar" align="center"></p>
+            {% else %}
+                <p><img src="{% static 'images/logo.jpg' %}" width="180" height="180" class="avatar" align="center"></p>
+            {% endif %}
+            <h3>
+            <div class="author">{{ user.username }}</div>
+            </h3>
+            {% if user.status %}
+                <p>
+                <div class="status">{{ user.status }}</div></p>
+            {% else %}
+                <p>
+                <div class="status">Нет статуса</div></p>
+            {% endif %}
+        </div>
+        <div class="posts-user">
+        <div class="card">
+            <p>
+            <div class="posts-counter">Написано постов: {{ posts_counter }}</div>
+            </p>
+        </div>
+        <div class="card">
+            {% if user.email %}
+                <p>
+                <div class="posts-counter">Электронная почта: {{ user.email }}</div>
+                </p>
+            {% else %}
+                <p>
+                <div class="posts-counter">Электронная почта: не указана</div>
+                </p>
+            {% endif %}
+        </div>
+        <div class="card">
+                <p><a href="{% url 'account' %}">Редактировать профиль</a></p>
+        </div>
+
+        </div>
+    </div>
+
+{% endblock %}

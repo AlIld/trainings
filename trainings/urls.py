@@ -24,7 +24,7 @@ from user.views import (
     login_view,
     account_view,
     must_authenticate_view,
-)
+    ProfileView)
 from personal.views import home_screen_view
 from django.contrib.auth import views as auth_views
 
@@ -32,6 +32,7 @@ urlpatterns = [
     path('', home_screen_view, name="home"),
     path('admin/', admin.site.urls),
     path('account/', account_view, name="account"),
+    path('account/<int:pk>/', ProfileView.as_view(), name='profile'),
     path('blog/', include('blog.urls', 'blog')),
     path('login/', login_view, name="login"),
     path('logout/', logout_view, name = "logout"),

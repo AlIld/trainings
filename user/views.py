@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.views.generic import DetailView
 
 from blog.models import BlogPost
 from user.models import New_user
@@ -51,6 +52,15 @@ def login_view(request):
 
     context['login_form'] = form
     return render(request, 'user_page/login.html', context)
+
+class ProfileView(DetailView):
+    model = New_user
+    template_name = 'user_page/user_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['posts_counter'] = BlogPost.objects.filter(author_id=self.object.id).count()
+        return context
 
 def account_view(request):
 
