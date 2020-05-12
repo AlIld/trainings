@@ -1,10 +1,17 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from blog.models import BlogPost
 from blog.forms import CreateBlogPostForm, UpdateBlogPostForm
 from user.models import New_user
+
+class ArticleView(APIView):
+    def get(self, request):
+        articles = BlogPost.objects.all()
+        return Response({"articles": articles})
 
 def create_blog_view(request):
 

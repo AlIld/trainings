@@ -25,11 +25,11 @@ SECRET_KEY = 'hdut^*fde5qn*h33h6t)djuw4armoik9+m)=3^$$u4u$21&2s&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #During development only
+#if DEBUG:
+#    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #During development only
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -140,3 +140,11 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'trainingsmanager.sup@gmail.com'
+EMAIL_HOST_PASSWORD = 'whwrijhvzkymumtn'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Trainings Team <noreply@trainings.com>'
