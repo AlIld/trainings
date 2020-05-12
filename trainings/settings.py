@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'posts',
     'schedule',
     'blog',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
