@@ -14,7 +14,7 @@
     <div class="row">
         <!-- Blog post-->
         <div class="card m-auto">
-            <img class="card-img-top" src="{{ blog_post.image.url }}" >
+            <img class="card-img-top" src="{{ blog_post.image.url }}" style="max-height: 650px">
             <div class="card-body my-2">
                 <h2 class="card-title">{{ blog_post.title }}</h2>
                 <p class="card-text">{{blog_post.body|safe}}</p>
