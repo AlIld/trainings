@@ -1,20 +1,29 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from blog.serializers import ArticleSerializer
 
 from blog.models import BlogPost
 from blog.forms import CreateBlogPostForm, UpdateBlogPostForm
 from user.models import New_user
 
-class ArticleView(APIView):
-    def get(self, request):
-        articles = BlogPost.objects.all()
-        return Response({"articles": articles})
+
+class ArticleView(ListCreateAPIView):
+    queryset = BlogPost.objects.all()
+    serializer_class = ArticleSerializer
+
+    def perform_create(self, serializer):
+        author = get_object_or_404(BlogPost.author, id=self.request.data.get('author_id'))
+        return serializer.save(author=author)
+
+
+class SingleArticleView(RetrieveUpdateDestroyAPIView):
+    queryset = BlogPost.objects.all()
+    serializer_class = ArticleSerializer
+
 
 def create_blog_view(request):
-
     context = {}
 
     user = request.user
@@ -33,8 +42,8 @@ def create_blog_view(request):
 
     return render(request, "blog/create_blog.html", {})
 
-def detail_blog_view(request, slug):
 
+def detail_blog_view(request, slug):
     context = {}
 
     blog_post = get_object_or_404(BlogPost, slug=slug)
@@ -42,8 +51,8 @@ def detail_blog_view(request, slug):
 
     return render(request, 'blog/detail_blog.html', context)
 
-def edit_blog_view(request, slug):
 
+def edit_blog_view(request, slug):
     context = {}
 
     user = request.user
@@ -58,13 +67,13 @@ def edit_blog_view(request, slug):
     if request.POST:
         form = UpdateBlogPostForm(request.POST or None, request.FILES or None, instance=blog_post)
         if form.is_valid():
-            obj =  form.save(commit=False)
+            obj = form.save(commit=False)
             obj.save()
             context['success_message'] = "Updated"
             blog_post = obj
 
     form = UpdateBlogPostForm(
-        initial = {
+        initial={
             "title": blog_post.title,
             "body": blog_post.body,
             "image": blog_post.image,
