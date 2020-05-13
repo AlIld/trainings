@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'schedule',
     'blog',
     'rest_framework',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,5 @@ EMAIL_HOST_PASSWORD = 'whwrijhvzkymumtn'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Trainings Team <noreply@trainings.com>'
+
+REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
