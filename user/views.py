@@ -15,7 +15,7 @@ def registration_view(request):
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            account = authenticate(username = username, password = raw_password)
+            account = authenticate(username=username, password=raw_password)
             login(request, account)
             return redirect('home')
         else:
@@ -30,8 +30,8 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
-def login_view(request):
 
+def login_view(request):
     context = {}
 
     user = request.user
@@ -53,6 +53,7 @@ def login_view(request):
     context['login_form'] = form
     return render(request, 'user_page/login.html', context)
 
+
 class ProfileView(DetailView):
     model = New_user
     template_name = 'user_page/user_page.html'
@@ -62,8 +63,8 @@ class ProfileView(DetailView):
         context['posts_counter'] = BlogPost.objects.filter(author_id=self.object.id).count()
         return context
 
-def account_view(request):
 
+def account_view(request):
     if not request.user.is_authenticated:
         return redirect("login")
 
@@ -72,19 +73,19 @@ def account_view(request):
     if request.POST:
         form = AccountUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.initial={
-                "username":request.POST['username'],
-                "email":request.POST['email'],
+            form.initial = {
+                "username": request.POST['username'],
+                "email": request.POST['email'],
             }
             form.save()
             context['success_message'] = "Updated"
     else:
         form = AccountUpdateForm(
-                initial={
-                    "email": request.user.email,
-                    "username": request.user.username,
-                }
-            )
+            initial={
+                "email": request.user.email,
+                "username": request.user.username,
+            }
+        )
     context['account_form'] = form
 
     blog_posts = BlogPost.objects.filter(author=request.user)
@@ -92,6 +93,6 @@ def account_view(request):
 
     return render(request, 'user_page/user.html', context)
 
+
 def must_authenticate_view(request):
     return render(request, 'user_page/must_authenticate.html', {})
-
